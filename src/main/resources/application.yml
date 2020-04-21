@@ -26,4 +26,6 @@ spring:
   connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   jpa:
     show-sql: true
+  thymeleaf:
+    cache: false
 
