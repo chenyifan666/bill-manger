@@ -1,51 +1,33 @@
 ﻿<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8">
     <title>梦学谷账单管理系统</title>
-    <link rel="stylesheet" href="../css/public.css"/>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
 <!--头部-->
-<header class="publicHeader">
-    <h1>梦学谷账单管理系统</h1>
-
-    <div class="publicHeaderR">
-        <p><span>下午好！</span><span style="color: #fff21b"> Admin</span> , 欢迎你！</p>
-        <a href="../main/login.html">退出</a>
-    </div>
+<header class="publicHeader" th:replace="main/public :: #public_header">
 </header>
 <!--时间-->
-<section class="publicTime">
-    <span id="time">2028年1月1日 11:11  星期一</span>
-    <a href="#">温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</a>
+<section class="publicTime" th:replace="main/public :: #public_time">
 </section>
 <!--主体内容-->
-<section class="publicMian ">
-    <div class="left">
-        <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
-        <nav>
-            <ul class="list">
-                <li ><a href="../bill/list.html">账单管理</a></li>
-                <li id="active"><a href="../provider/list.html">供应商管理</a></li>
-                <li><a href="../user/list.html">用户管理</a></li>
-                <li><a href="../main/password.html">密码修改</a></li>
-                <li><a href="../main/login.html">退出系统</a></li>
-            </ul>
-        </nav>
+<section class="publicMian">
+    <div class="left" th:replace="main/public :: #public_left">
     </div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
             <span>供应商管理页面</span>
         </div>
-        <div class="search">
+        <form class="search" id="providerForm" th:method="get" th:action="@{/provider/list}">
             <span>供应商名称：</span>
-            <input type="text" placeholder="请输入供应商的名称"/>
-            <input type="button" value="查询"/>
+            <input type="text" th:value="${providerName}" name="providerName" placeholder="请输入供应商的名称"/>
+            <input type="button" value="查询" onclick="$('#providerForm').submit()"/>
             <a href="add.html">添加供应商</a>
-        </div>
+        </form>
         <!--供应商操作表格-->
         <table class="providerTable" cellpadding="0" cellspacing="0">
             <tr class="firstTr">
@@ -57,28 +39,15 @@
                 <th width="10%">创建时间</th>
                 <th width="30%">操作</th>
             </tr>
-            <tr>
-                <td>PRO-CODE—001</td>
-                <td>测试供应商001</td>
-                <td>韩露</td>
-                <td>15918230478</td>
-                <td>15918230478</td>
-                <td>2015-11-12</td>
+            <tr th:each="provider:${providerList}">
+                <td th:text="${provider.providerCode}">PRO-CODE—001</td>
+                <td th:text="${provider.providerName}">测试供应商001</td>
+                <td th:text="${provider.people}">韩露</td>
+                <td th:text="${provider.phone}">15918230478</td>
+                <td th:text="${provider.fax}">15918230478</td>
+                <td th:text="${#dates.format(provider.createDate,'yyyy-MM-dd')}">2015-11-12</td>
                 <td>
-                    <a href="view.html"><img src="../img/read.png" alt="查看" title="查看"/></a>
-                    <a href="update.html"><img src="../img/xiugai.png" alt="修改" title="修改"/></a>
-					<a href="#" class="delete" ><img src="../img/schu.png" alt="删除" title="删除"/></a>
-                </td>
-            </tr>
-            <tr>
-                <td>PRO-CODE—001</td>
-                <td>测试供应商001</td>
-                <td>韩露</td>
-                <td>15918230478</td>
-                <td>15918230478</td>
-                <td>2015-11-12</td>
-                <td>
-                    <a href="view.html"><img src="../img/read.png" alt="查看" title="查看"/></a>
+                    <a th:href="@{/provider/getProvider/}+${provider.id}"><img src="../img/read.png" alt="查看" title="查看"/></a>
                     <a href="update.html"><img src="../img/xiugai.png" alt="修改" title="修改"/></a>
 					<a href="#" class="delete" ><img src="../img/schu.png" alt="删除" title="删除"/></a>
                 </td>
@@ -105,10 +74,10 @@
 </form>
 
 
-<footer class="footer"><div style="text-align:center;">	<p><a href="http://www.mengxuegu.com/" target="_blank">梦学谷 www.mengxuegu.com</a> 版权所有</p></div></footer>
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/js.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/js.js"></script>
 <!--
 	<script src="js/time.js"></script>
 	-->

@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>梦学谷账单管理系统</title>
-    <link rel="stylesheet" href="../css/public.css"/>
-    <link rel="stylesheet" href="../css/style.css"/>
+    <title>账单管理系统</title>
+    <link rel="stylesheet" href="/css/public.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
 <!--头部-->
 <header class="publicHeader">
-    <h1>梦学谷账单管理系统</h1>
+    <h1>账单管理系统</h1>
 
     <div class="publicHeaderR">
         <p><span>下午好！</span><span style="color: #fff21b"> Admin</span> , 欢迎你！</p>
@@ -41,18 +41,21 @@
             <span>供应商管理页面 >> 信息查看</span>
         </div>
         <div class="providerView">
-            <p><strong>供应商编码：</strong><span>PRO-CODE—001</span></p>
-            <p><strong>供应商名称：</strong><span>测试供应商001</span></p>
-            <p><strong>联系人：</strong><span>韩露</span></p>
-            <p><strong>联系电话：</strong><span>15918230478</span></p>
-            <p><strong>传真：</strong><span>15918230478</span></p>
-            <p><strong>描述：</strong><span>描述</span></p>
+            <p><strong>供应商编码：</strong><span th:text="${provider.providerCode}">PRO-CODE—001</span></p>
+            <p><strong>供应商名称：</strong><span th:text="${provider.providerName}">测试供应商001</span></p>
+            <p><strong>联系人：</strong><span th:text="${provider.people}">韩露</span></p>
+            <p><strong>联系电话：</strong><span th:text="${provider.phone}">15918230478</span></p>
+            <p><strong>传真：</strong><span th:text="${provider.fax}">15918230478</span></p>
+            <p><strong>描述：</strong><span th:text="${provider.describe}">描述</span></p>
 
-            <a href="list.html">返回</a>
+            <a th:href="@{/provider/list}">返回</a>
         </div>
     </div>
 </section>
 <footer class="footer"><div style="text-align:center;">	<p><a href="http://www.mengxuegu.com/" target="_blank">梦学谷 www.mengxuegu.com</a> 版权所有</p></div></footer>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/js.js"></script>
 <!--
 	<script src="js/time.js"></script>
 	-->
