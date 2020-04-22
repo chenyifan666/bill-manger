@@ -9,23 +9,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class ProviderService {
-    @Autowired
-    private ProviderRepository providerRepository;
+public interface ProviderService {
 
-    public List<Provider> getProviders(){
-        return providerRepository.findAll();
-    }
+    List<Provider> getProviders();
 
-    public List<Provider> getProviders(Provider provider){
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
-                .withMatcher("providerName",ExampleMatcher.GenericPropertyMatchers.contains());
-        Example<Provider> example = Example.of(provider,exampleMatcher);
-        return providerRepository.findAll(example);
-    }
+    List<Provider> getProviders(Provider provider);
 
-    public Provider getProviderById(String id){
-        return providerRepository.findAllById(id);
-    }
+    Provider getProviderById(String id);
+
+    void deleteProviderById(String id);
+
+    void saveProvider(Provider provider);
 }

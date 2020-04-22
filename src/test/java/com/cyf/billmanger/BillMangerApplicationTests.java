@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 class BillMangerApplicationTests {
@@ -33,6 +34,8 @@ class BillMangerApplicationTests {
     @Test
     void testProvider(){
         List<Provider> providers = providerRepository.findAll();
-        System.out.println(providers.get(0));
+        Provider provider = providers.get(3);
+        provider.setId(UUID.randomUUID().toString());
+        providerRepository.save(provider);
     }
 }

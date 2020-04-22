@@ -31,8 +31,8 @@ public class Provider {
     @Column(name = "fax")
     private String fax;
 
-    @Column(name = "describe")
-    private String describe;
+    @Column(name = "des")
+    private String des;
 
     @Column(name = "create_date")
     private Date createDate;

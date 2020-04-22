@@ -14,13 +14,14 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("main/index");
         registry.addViewController("/index").setViewName("main/index");
-        registry.addViewController("/login.html").setViewName("main/login");
+        registry.addViewController("/toLogin").setViewName("main/login");
+        registry.addViewController("/provider/toAdd").setViewName("provider/add");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns(Arrays.asList("/css/*","/js/*","/img/*","/login.html","/user/login"));
+                .excludePathPatterns(Arrays.asList("/css/*","/js/*","/img/*","/toLogin","/user/login"));
     }
 }

@@ -36,6 +36,6 @@ public class UserController {
     @GetMapping("/loginOut")
     public String loginOut(HttpServletRequest request){
         request.getSession().removeAttribute("user");
-        return "redirect:/login.html";
+        return "redirect:/toLogin";
     }
 }
