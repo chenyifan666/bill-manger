@@ -48,7 +48,7 @@ class BillMangerApplicationTests {
 
     @Test
     void testBill(){
-        List<BillProvider> billProviders = billRepository.findBillProviders();
-        System.out.println(billProviders);
+        BillProvider billProvider = billRepository.findBillProvidersByBid("1");
+        System.out.println(billProvider);
     }
 }

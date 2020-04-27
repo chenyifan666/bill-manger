@@ -41,7 +41,7 @@
                 </select>
 
                 <input type="button" onclick="$('#searchForm').submit()" value="查询"/>
-                <a href="../bill/add.html">添加帐单</a>
+                <a th:href="@{/bill/toAdd}">添加帐单</a>
             </div>
 			</form>
             <!--账单表格 样式和供应商公用-->
@@ -63,9 +63,9 @@
                     <td th:text="${billProvider.bill.pay==1?'已付款':'未付款'}">未付款</td>
                     <td th:text="${#dates.format(billProvider.bill.createDate,'yyyy-MM-dd')}">2015-11-12</td>
                     <td>
-                        <a href="view.html"><img src="../img/read.png" alt="查看" title="查看"/></a>
-                        <a href="update.html"><img src="../img/xiugai.png" alt="修改" title="修改"/></a>
-                        <a href="#" class="delete"><img src="../img/schu.png" alt="删除" title="删除"/></a>
+                        <a th:href="@{/bill/getBill/}+${billProvider.bill.bid}"><img src="../img/read.png" alt="查看" title="查看"/></a>
+                        <a th:href="@{/bill/getBill/}+${billProvider.bill.bid}+'?type=update'"><img src="../img/xiugai.png" alt="修改" title="修改"/></a>
+                        <a th:attr="del_uri='/bill/delete/'+${billProvider.bill.bid}" href="#" class="delete"><img src="../img/schu.png" alt="删除" title="删除"/></a>
                     </td>
                 </tr>
             </table>

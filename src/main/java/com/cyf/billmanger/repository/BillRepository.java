@@ -4,6 +4,7 @@ import com.cyf.billmanger.dto.BillProvider;
 import com.cyf.billmanger.entities.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,4 +13,7 @@ import java.util.List;
 public interface BillRepository extends JpaRepository<Bill,String> {
     @Query(value = "select new com.cyf.billmanger.dto.BillProvider(b,p) from Bill b,Provider p where b.pid = p.id")
     List<BillProvider> findBillProviders();
+
+    @Query(value = "select new com.cyf.billmanger.dto.BillProvider(b,p) from Bill b,Provider p where b.pid = p.id and b.id=:bid")
+    BillProvider findBillProvidersByBid(@Param("bid") String bid);
 }

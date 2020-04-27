@@ -8,8 +8,13 @@ import com.cyf.billmanger.entities.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,27 +30,47 @@ public class BillController {
 
     @GetMapping("/list")
     public String getBills(Bill bill,Map map){
-        List<BillProvider> billProviders = billService.getBillProviders();
+        List<BillProvider> billProviders = billService.getBillProviders(bill);
         List<Provider> providers = providerService.getProviders();
-
-        Iterator<BillProvider> iterator = billProviders.iterator();
-        while (iterator.hasNext()){
-            BillProvider billProvider = iterator.next();
-            if(!StringUtils.isEmpty(bill.getBillName()) &&!billProvider.getBill().getBillName().contains(bill.getBillName())){
-                iterator.remove();
-            }
-            else if(!StringUtils.isEmpty(bill.getPid())&&!billProvider.getBill().getPid().equals(bill.getPid())){
-                iterator.remove();
-            }
-            else if(bill.getPay()!=null&&billProvider.getBill().getPay()!=bill.getPay()){
-                iterator.remove();
-            }
-        }
         map.put("pay",bill.getPay());
         map.put("pid",bill.getPid());
         map.put("billName",bill.getBillName());
         map.put("billProviders",billProviders);
         map.put("providers",providers);
         return "bill/list";
+    }
+
+    @GetMapping("/getBill/{bid}")
+    public String getBill(@PathVariable("bid") String bid,
+                          @RequestParam(name = "type",defaultValue = "view") String type,
+                          Map map){
+        BillProvider billProvider = billService.getBillProviderByBid(bid);
+        map.put("billProvider",billProvider);
+        if("view".equals(type)){
+            return "bill/view";
+        }else{
+            List<Provider> providers = providerService.getProviders();
+            map.put("providers",providers);
+            return "bill/update";
+        }
+    }
+
+    @PostMapping("/save")
+    public String save(Bill bill){
+        billService.save(bill);
+        return "redirect:/bill/list";
+    }
+
+    @GetMapping("/toAdd")
+    public String toAdd(Map map){
+        List<Provider> providers = providerService.getProviders();
+        map.put("providers",providers);
+        return "/bill/add";
+    }
+
+    @DeleteMapping("/delete/{pid}")
+    public String delete(@PathVariable("pid") String pid){
+        billService.delete(pid);
+        return "redirect:/bill/list";
     }
 }
