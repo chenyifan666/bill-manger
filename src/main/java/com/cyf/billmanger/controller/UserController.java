@@ -1,4 +1,4 @@
-package com.cyf.billmanger.Controller;
+package com.cyf.billmanger.controller;
 
 import com.cyf.billmanger.Service.UserService;
 import com.cyf.billmanger.entities.User;
