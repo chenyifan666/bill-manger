@@ -1,6 +1,7 @@
 package com.cyf.billmanger.controller;
 
 import com.cyf.billmanger.Service.UserService;
+import com.cyf.billmanger.dto.UserInfor;
 import com.cyf.billmanger.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -37,5 +39,12 @@ public class UserController {
     public String loginOut(HttpServletRequest request){
         request.getSession().removeAttribute("user");
         return "redirect:/toLogin";
+    }
+
+    @GetMapping("/list")
+    public String list(Map map,User user){
+        List<UserInfor> users = userService.getUsers(user);
+        map.put("users",users);
+        return "user/list";
     }
 }
