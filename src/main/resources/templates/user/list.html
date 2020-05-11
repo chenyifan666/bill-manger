@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-<html>
 <html xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
     <title>梦学谷账单管理系统</title>
@@ -24,7 +23,7 @@
             </div>
             <form class="search" id="userSearchForm" th:method="get" th:action="@{/user/list}">
                 <span>用户名：</span>
-                <input type="text" th:name="username" placeholder="请输入用户名"/>
+                <input type="text" th:value="${username}" th:name="username" placeholder="请输入用户名"/>
                 <input type="button" onclick="$('#userSearchForm').submit()" value="查询"/>
                 <a href="add.html">添加用户</a>
             </form>
@@ -45,9 +44,9 @@
                     <td th:text="${#dates.format(user.birthday,'yyyy-MM-dd')}">1989/10/10</td>
                     <td th:text="${user.userType==1?'管理员':(user.userType==2?'经理':'普通用户')}">经理</td>
                     <td>
-                        <a href="view.html"><img src="../img/read.png" alt="查看" title="查看"/></a>
-                        <a href="update.html"><img src="../img/xiugai.png" alt="修改" title="修改"/></a>
-                        <a href="#" class="delete"><img src="../img/schu.png" alt="删除" title="删除"/></a>
+                        <a th:href="@{/user/getUser/}+${user.id}"><img src="../img/read.png" alt="查看" title="查看"/></a>
+                        <a th:href="@{/user/getUser/}+${user.id}+'?type=update'"><img src="../img/xiugai.png" alt="修改" title="修改"/></a>
+                        <a th:attr="del_uri='/user/delete/'+${user.id}" class="delete"><img src="../img/schu.png" alt="删除" title="删除"/></a>
                     </td>
                 </tr>
             </table>

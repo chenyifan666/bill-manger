@@ -14,4 +14,10 @@ public interface UserService {
     List<UserInfor> getUsers();
 
     List<UserInfor> getUsers(User user);
+
+    UserInfor getUser(String id);
+
+    void saveUser(User user);
+
+    void deleteUser(String id);
 }

@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,5 +35,28 @@ public class UserServiceImpl implements UserService {
                 .withMatcher("username",ExampleMatcher.GenericPropertyMatchers.contains());
         Example example = Example.of(user,matcher);
         return userRepository.findAll(example);
+    }
+
+    @Override
+    public UserInfor getUser(String id) {
+        UserInfor userInfor = userRepository.getUserInforById(id);
+        return userInfor;
+    }
+
+    @Override
+    public void saveUser(User user) {
+        if(StringUtils.isEmpty(user.getId())){
+            user.setId(UUID.randomUUID().toString());
+        }else{
+            User oldUser = userRepository.findById(user.getId()).get();
+            user.setPassword(oldUser.getPassword());
+            user.setUsername(oldUser.getUsername());
+        }
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
     }
 }
