@@ -49,8 +49,12 @@ public class UserServiceImpl implements UserService {
             user.setId(UUID.randomUUID().toString());
         }else{
             User oldUser = userRepository.findById(user.getId()).get();
-            user.setPassword(oldUser.getPassword());
-            user.setUsername(oldUser.getUsername());
+            if(StringUtils.isEmpty(user.getPassword())){
+                user.setPassword(oldUser.getPassword());
+            }
+            if(StringUtils.isEmpty(user.getUsername())){
+                user.setUsername(oldUser.getUsername());
+            }
         }
         userRepository.save(user);
     }

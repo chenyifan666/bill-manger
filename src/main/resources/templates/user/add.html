@@ -21,8 +21,8 @@
             <strong>你现在所在的位置是:</strong>
             <span>用户管理页面 >> 用户添加页面</span>
         </div>
-        <div class="providerAdd">
-            <form action="#">
+        <div class="providerAdd" >
+            <form th:action="@{/user/save}" th:method="post" th:id="userAddForm">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div class="">
                     <label for="username">用户名：</label>
@@ -36,13 +36,13 @@
                 </div>
                 <div>
                     <label for="userpassword">用户密码：</label>
-                    <input type="text" name="userpassword" id="userpassword"/>
+                    <input type="password" name="userpassword" id="userpassword"/>
                     <span>*密码长度必须大于6位小于20位</span>
 
                 </div>
                 <div>
                     <label for="password">确认密码：</label>
-                    <input type="text" name="password" id="password"/>
+                    <input type="password"  name="password" id="password"/>
                     <span>*请输入确认密码</span>
                 </div>
                 <div>
@@ -68,7 +68,7 @@
                 <div class="providerAddBtn">
                     <!--<a href="#">保存</a>-->
                     <!--<a href="userList.html">返回</a>-->
-                    <input type="button" value="保存" onclick="history.back(-1)"/>
+                    <input type="button" id="userAddBtn" value="保存"/>
                     <input type="button" value="返回" onclick="history.back(-1)"/>
                 </div>
             </form>
@@ -77,8 +77,18 @@
     </div>
 </section>
 <footer class="footer"><div style="text-align:center;">	<p><a href="http://www.mengxuegu.com/" target="_blank">梦学谷 www.mengxuegu.com</a> 版权所有</p></div></footer>
-<!--
-	<script src="js/time.js"></script>
-	-->
+<script src="/js/jquery.js"></script>
+<script>
+    $('#userAddBtn').click(function () {
+        var userpassword = $('#userpassword').val();
+        var password = $('#password').val();
+        if(userpassword===password){
+            $('#userAddForm').submit();
+        }else{
+            alert("两次密码输入不一致");
+        }
+    })
+</script>
+
 </body>
 </html>

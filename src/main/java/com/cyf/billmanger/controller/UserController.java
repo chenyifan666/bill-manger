@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +74,25 @@ public class UserController {
         userService.deleteUser(id);
         return "redirect:/user/list";
     }
+
+    @PostMapping("/checkPassword")
+    @ResponseBody
+    public boolean checkPassword(String password, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(user!=null&&password.equals(user.getPassword())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(String password,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        user.setPassword(password);
+        userService.saveUser(user);
+        return "redirect:/user/loginOut";
+    }
+
 
 }
