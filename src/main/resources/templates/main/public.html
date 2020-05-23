@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head lang="en">
     <meta charset="UTF-8">
     <title>账单管理系统</title>
@@ -10,7 +11,7 @@
     <header class="publicHeader" id="public_header">
         <h1>账单管理系统</h1>
         <div class="publicHeaderR">
-            <p><span>下午好！</span><span style="color: #fff21b"> Admin</span> , 欢迎你！</p>
+            <p><span>下午好！</span><span style="color: #fff21b"><shiro:principal name="username"></shiro:principal></span> , 欢迎你！</p>
             <a th:href="@{/user/loginOut}">退出</a>
         </div>
     </header>
@@ -25,7 +26,7 @@
             <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
             <nav>
                 <ul class="list">
-                    <li ><a th:href="@{/bill/list}">账单管理</a></li>
+                    <li><a th:href="@{/bill/list}">账单管理</a></li>
                     <li><a th:href="@{/provider/list}">供应商管理</a></li>
                     <li><a th:href="@{/user/list}">用户管理</a></li>
                     <li><a th:href="@{/password}">密码修改</a></li>

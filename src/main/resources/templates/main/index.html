@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">>
 <head lang="en">
     <meta charset="UTF-8">
     <title>梦学谷账单管理系统</title>
@@ -20,7 +21,7 @@
     <div class="right">
         <img class="wColck" src="../img/clock.jpg" alt=""/>
         <div class="wFont">
-            <h2>Admin</h2>
+            <h2><shiro:principal name="username"></shiro:principal></h2>
             <p>欢迎来到梦学谷账单管理系统!</p>
 			<span id="hours"></span>
         </div>

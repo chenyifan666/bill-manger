@@ -1,5 +1,6 @@
 package com.cyf.billmanger.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.cyf.billmanger.config.realm.UserRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -46,5 +47,11 @@ public class ShiroConfig {
     public Realm userRealm(){
         UserRealm userRealm = new UserRealm();
         return userRealm;
+    }
+
+    @Bean
+    public ShiroDialect shiroDialect(){
+        ShiroDialect shiroDialect = new ShiroDialect();
+        return shiroDialect;
     }
 }
