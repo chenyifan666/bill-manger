@@ -15,6 +15,8 @@ public interface UserRepository extends JpaRepository<User,String> {
 
     User findAllByUsernameAndPassword(String username,String password);
 
+    User findUserByUsername(String username);
+
     @Query(value = "select new com.cyf.billmanger.dto.UserInfor(u.id, u.username, u.realName, u.gender, u.birthday,u.userType) from User as u")
     List<UserInfor> findUserList();
 

@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 
 @Configuration
 public class SpringMvcConfig implements WebMvcConfigurer {
@@ -18,12 +17,5 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/provider/toAdd").setViewName("provider/add");
         registry.addViewController("/user/toAdd").setViewName("user/add");
         registry.addViewController("/password").setViewName("main/password");
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns(Arrays.asList("/css/*","/js/*","/img/*","/toLogin","/user/login"));
     }
 }

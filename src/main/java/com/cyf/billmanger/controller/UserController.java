@@ -3,6 +3,9 @@ package com.cyf.billmanger.controller;
 import com.cyf.billmanger.Service.UserService;
 import com.cyf.billmanger.dto.UserInfor;
 import com.cyf.billmanger.entities.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,19 +32,21 @@ public class UserController {
                         @RequestParam("password") String password,
                         HttpServletRequest request,
                         Map map){
-        User user = userService.login(username,password);
-        if(user!=null){
-            request.getSession().setAttribute("user",user);
-            return "redirect:/index";
-        }else{
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password);
+            subject.login(usernamePasswordToken);
+        }catch (Exception e){
             map.put("msg","用户名或密码错误，请重新登录");
             return "main/login";
         }
+        return "redirect:/index";
     }
 
     @GetMapping("/loginOut")
     public String loginOut(HttpServletRequest request){
-        request.getSession().removeAttribute("user");
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         return "redirect:/toLogin";
     }
 

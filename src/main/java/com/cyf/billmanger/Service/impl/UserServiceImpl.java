@@ -20,11 +20,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User login(String username, String password){
-        User user = userRepository.findAllByUsernameAndPassword(username,password);
-        return user;
-    }
-
     public List<UserInfor> getUsers(){
         return userRepository.findUserList();
     }
