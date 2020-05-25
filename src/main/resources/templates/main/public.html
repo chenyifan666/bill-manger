@@ -27,8 +27,12 @@
             <nav>
                 <ul class="list">
                     <li><a th:href="@{/bill/list}">账单管理</a></li>
-                    <li><a th:href="@{/provider/list}">供应商管理</a></li>
-                    <li><a th:href="@{/user/list}">用户管理</a></li>
+                    <shiro:hasAnyRoles name="admin,manager">
+                        <li><a th:href="@{/provider/list}">供应商管理</a></li>
+                    </shiro:hasAnyRoles>
+                    <shiro:hasRole name="admin">
+                        <li><a th:href="@{/user/list}">用户管理</a></li>
+                    </shiro:hasRole>
                     <li><a th:href="@{/password}">密码修改</a></li>
                     <li><a th:href="@{/user/loginOut}">退出系统</a></li>
                 </ul>
