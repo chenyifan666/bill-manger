@@ -16,6 +16,8 @@ public interface UserService {
 
     UserInfor getUser(String id);
 
+    User getUserByUsername(String username);
+
     void saveUser(User user);
 
     void deleteUser(String id);

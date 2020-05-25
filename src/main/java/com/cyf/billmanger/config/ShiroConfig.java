@@ -3,6 +3,7 @@ package com.cyf.billmanger.config;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.cyf.billmanger.config.filter.RoleOrFilter;
 import com.cyf.billmanger.config.realm.UserRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -55,9 +56,18 @@ public class ShiroConfig {
     }
 
     @Bean("userRealm")
-    public Realm userRealm(){
+    public Realm userRealm(@Qualifier("HashedCredentialsMatcher") HashedCredentialsMatcher matcher){
         UserRealm userRealm = new UserRealm();
+        userRealm.setCredentialsMatcher(matcher);
         return userRealm;
+    }
+
+    @Bean("HashedCredentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+        matcher.setHashAlgorithmName("md5");
+        matcher.setHashIterations(2);
+        return matcher;
     }
 
     @Bean

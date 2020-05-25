@@ -5,6 +5,7 @@ import com.cyf.billmanger.dto.UserInfor;
 import com.cyf.billmanger.entities.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,7 +84,10 @@ public class UserController {
     @PostMapping("/checkPassword")
     @ResponseBody
     public boolean checkPassword(String password, HttpSession session){
-        User user = (User) session.getAttribute("user");
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        User user = userService.getUserByUsername(username);
+        password = new SimpleHash("md5",password,null,2).toString();
         if(user!=null&&password.equals(user.getPassword())){
             return true;
         }else{
@@ -93,7 +97,10 @@ public class UserController {
 
     @PostMapping("/changePassword")
     public String changePassword(String password,HttpSession session){
-        User user = (User) session.getAttribute("user");
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        User user = userService.getUserByUsername(username);
+        password = new SimpleHash("md5",password,null,2).toString();
         user.setPassword(password);
         userService.saveUser(user);
         return "redirect:/user/loginOut";

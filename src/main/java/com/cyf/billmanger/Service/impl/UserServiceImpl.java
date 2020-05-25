@@ -4,6 +4,7 @@ import com.cyf.billmanger.Service.UserService;
 import com.cyf.billmanger.dto.UserInfor;
 import com.cyf.billmanger.entities.User;
 import com.cyf.billmanger.repository.UserRepository;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -39,9 +40,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
+    @Override
     public void saveUser(User user) {
         if(StringUtils.isEmpty(user.getId())){
             user.setId(UUID.randomUUID().toString());
+            SimpleHash password = new SimpleHash("md5",user.getPassword(),null,2);
+            user.setPassword(password.toString());
         }else{
             User oldUser = userRepository.findById(user.getId()).get();
             if(StringUtils.isEmpty(user.getPassword())){
