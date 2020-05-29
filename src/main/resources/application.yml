@@ -33,3 +33,5 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  messages:
+    basename: i18n.login

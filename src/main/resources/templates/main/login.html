@@ -15,26 +15,26 @@
             <form class="loginForm" th:method="post" th:id="loginForm" th:action="@{/user/login}">
 				
                 <div class="inputbox">
-                    <label for="user">用户名</label>
+                    <label for="user" th:text="#{login.username}">用户名</label>
                     <input id="user" type="text" name="username"  required/>
                 </div>
                 <div class="inputbox">
-                    <label for="mima">密码</label>
+                    <label for="mima" th:text="#{login.password}">密码</label>
                     <input id="mima" type="password" name="password"  required/>
                 </div>
 				<div class="subBtn">
-						<input type="checkbox"> 记住密码
+						<input type="checkbox"> [[#{login.rember}]]
                 </div>
 				<br/>
                 <div class="subBtn">
-                    <input type="submit" value="登录" onclick="$('#loginForm').submit()"/>
-                    <input type="reset" value="重置"/>
+                    <input type="submit" th:value="#{login.login}" onclick="$('#loginForm').submit()"/>
+                    <input type="reset" th:value="#{login.reset}" value="重置"/>
                 </div>
 				<br/>
 				<div style="margin-left: 100px;">
-                    <a href="#">中文</a>
+                    <a th:href="@{/toLogin(l='zh_CN')}">中文</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="">English</a>
+                    <a th:href="@{/toLogin(l='en_US')}">English</a>
                 </div>
             </form>
         </section>
