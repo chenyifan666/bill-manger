@@ -5,7 +5,7 @@ spring:
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: root
-    url: jdbc:mysql://localhost:3306/bill_manger?serverTimezone=GMT%2B8
+    url: jdbc:mysql://182.92.74.116:3306/bill_manager?serverTimezone=GMT%2B8
     type: com.alibaba.druid.pool.DruidDataSource
   #  数据源其他配置, DataSourceProperties中没有相关属性,默认无法绑定
   initialSize: 8
